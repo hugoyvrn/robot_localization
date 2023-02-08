@@ -334,19 +334,19 @@ void FilterBase::setSensorTimeout(const rclcpp::Duration & sensor_timeout)
 
 void FilterBase::setState(const Eigen::VectorXd & state) {state_ = state;}
 
-void FilterBase::validateDelta(rclcpp::Duration & /*delta*/)
+void FilterBase::validateDelta(rclcpp::Duration & delta)
 {
   // TODO(someone): Need to verify this condition B'Coz
   // rclcpp::Duration::from_seconds(100000.0) value is 0.00010000000000000000479
   // This handles issues with ROS time when use_sim_time is on and we're playing
   // from bags.
-  /* if (delta > rclcpp::Duration::from_seconds(100000.0))
+  if (delta > rclcpp::Duration::from_seconds(1000.0))
   {
-    FB_DEBUG("Delta was very large. Suspect playing from bag file. Setting to
-  0.01\n");
+    // FB_DEBUG("Delta was very large. Suspect playing from bag file. Setting to
+  // 0.01\n");
 
     delta = rclcpp::Duration::from_seconds(0.01);
-  } */
+  } 
 }
 
 void FilterBase::prepareControl(
